@@ -1723,6 +1723,11 @@ button,
     .features article .icon:before {
       font-size: 1.25rem; } }
 
+    /* Advertisment */
+      .ad {
+        align-items: end;
+      }
+
 /* Posts */
 .posts {
   display: -moz-flex;

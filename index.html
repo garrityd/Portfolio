@@ -6,12 +6,55 @@
 -->
 <html>
 	<head>
-		<title>Editorial by HTML5 UP</title>
+		<title>Garrityd Portfolio</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+<script src="car-advertisement.js"></script>
+<script>
+var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
+function init() {
+	canvas = document.getElementById("canvas");
+	anim_container = document.getElementById("animation_container");
+	dom_overlay_container = document.getElementById("dom_overlay_container");
+	var comp=AdobeAn.getComposition("326FB4230A32FF47813E2D2CB11D6AA2");
+	var lib=comp.getLibrary();
+	var loader = new createjs.LoadQueue(false);
+	loader.addEventListener("fileload", function(evt){handleFileLoad(evt,comp)});
+	loader.addEventListener("complete", function(evt){handleComplete(evt,comp)});
+	var lib=comp.getLibrary();
+	loader.loadManifest(lib.properties.manifest);
+}
+function handleFileLoad(evt, comp) {
+	var images=comp.getImages();	
+	if (evt && (evt.item.type == "image")) { images[evt.item.id] = evt.result; }	
+}
+function handleComplete(evt,comp) {
+	//This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
+	var lib=comp.getLibrary();
+	var ss=comp.getSpriteSheet();
+	var queue = evt.target;
+	var ssMetadata = lib.ssMetadata;
+	for(i=0; i<ssMetadata.length; i++) {
+		ss[ssMetadata[i].name] = new createjs.SpriteSheet( {"images": [queue.getResult(ssMetadata[i].name)], "frames": ssMetadata[i].frames} )
+	}
+	exportRoot = new lib.caradvertisement();
+	stage = new lib.Stage(canvas);	
+	//Registers the "tick" event listener.
+	fnStartAnimation = function() {
+		stage.addChild(exportRoot);
+		createjs.Ticker.framerate = lib.properties.fps;
+		createjs.Ticker.addEventListener("tick", stage);
+	}	    
+	//Code to support hidpi screens and responsive scaling.
+	AdobeAn.makeResponsive(false,'both',false,1,[canvas,anim_container,dom_overlay_container]);	
+	AdobeAn.compositionLoaded(lib.properties.id);
+	fnStartAnimation();
+}
+</script>
 	</head>
-	<body class="is-preload">
+	<body class="is-preload" onload="init();" style="margin:0px;">
 
 		<!-- Wrapper -->
 			<div id="wrapper">
@@ -60,7 +103,7 @@
 											<a href="https://www.walpole.k12.ma.us/o/whs" target="_blank" class="icon"><span class="icon fa-gem"></span></a>
 											<div class="content">
 												<h3>Landing Page</h3>
-												<p>This is the Walpole Public High School Studnet Landing Page. It is very useful for navigating around the Walpole websites and provides a lot of information.</p>
+												<p>This is the Walpole Public High School Student Landing Page. It is very useful for navigating around the Walpole websites and provides a lot of information.</p>
 											</div>
 										</article>
 										<article>
@@ -84,6 +127,18 @@
 												<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
 											</div>
 										</article>
+										<div class="ad">
+											<div id="animation_container" style="background-color:rgba(255, 255, 255, 1.00); width:160px; height:600px">
+												<canvas id="canvas" width="160" height="600" style="position: absolute; display: block; background-color:rgba(255, 255, 255, 1.00);"></canvas>
+												<div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:160px; height:600px; position: absolute; left: 0px; top: 0px; display: block;">
+												</div>
+											</div>
+											<div id="animation_container" style="background-color:rgba(255, 255, 255, 1.00); width:250px; height:250px">
+												<canvas id="canvas" width="250" height="250" style="position: absolute; display: block; background-color:rgba(255, 255, 255, 1.00);"></canvas>
+												<div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:250px; height:250px; position: absolute; left: 0px; top: 0px; display: block;">
+												</div>
+											</div>
+										</div>
 									</div>
 								</section>
 
@@ -94,35 +149,35 @@
 									</header>
 									<div class="posts">
 										<article>
-											<a href="#" class="image"><img src="images/space-site.png" alt="" /></a>
+											<a href="https://garrityd.github.io/SpaceWebsite/" class="image" target="_blank"><img src="images/space-site.png" alt="soccer_website" /></a>
 											<h3>Space Website</h3>
 											<p>This website contains a lot of very interesting information on space, the history of the space race, and much more.</p>
 											<ul class="actions">
-												<li><a href="#" class="button">More</a></li>
+												<li><a href="https://garrityd.github.io/SpaceWebsite/" class="button" target="_blank">More</a></li>
 											</ul>
 										</article>
 										<article>
-											<a href="#" class="image"><img src="images/pic02.jpg" alt="" /></a>
-											<h3>Nulla amet dolore</h3>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+											<a href="https://garrityd.github.io/Onepager/" class="image" target="_blank"><img src="images/onepager-image.png" alt="space_website" /></a>
+											<h3>One Pager</h3>
+											<p>This website contains a lot of information about how I like to spend my spare time.</p>
 											<ul class="actions">
-												<li><a href="#" class="button">More</a></li>
+												<li><a href="https://garrityd.github.io/Onepager/" class="button" target="_blank">More</a></li>
 											</ul>
 										</article>
 										<article>
-											<a href="#" class="image"><img src="images/pic03.jpg" alt="" /></a>
-											<h3>Tempus ullamcorper</h3>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+											<a href="https://garrityd.github.io/WHSpage/" class="image" target="_blank"><img src="images/WHSathletics-cite.png" alt="athletics_cite" /></a>
+											<h3>High School Athletics</h3>
+											<p>This is a cite that I made to redesign the old Walpole High School Sports registary page. Feel free to compare my cite to the orginal that I linked higher up on the page.</p>
 											<ul class="actions">
-												<li><a href="#" class="button">More</a></li>
+												<li><a href="https://garrityd.github.io/WHSpage/" class="button" target="_blank">More</a></li>
 											</ul>
 										</article>
 										<article>
-											<a href="#" class="image"><img src="images/pic04.jpg" alt="" /></a>
-											<h3>Sed etiam facilis</h3>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+											<a href="https://garrityd.github.io/Boating/" target="_blank" class="image"><img src="images/boat-site.png" alt="" /></a>
+											<h3>Boat Shop</h3>
+											<p>This is a faux boat site that I made for practice. Feel free to explore it, but remember, this is not a real boat shop in any shape or form and do not attempt to buy from it in any way.</p>
 											<ul class="actions">
-												<li><a href="#" class="button">More</a></li>
+												<li><a href="https://garrityd.github.io/Boating/" target="_blank" class="button">More</a></li>
 											</ul>
 										</article>
 										<article>
@@ -217,23 +272,9 @@
 									</ul>
 								</section>
 
-							<!-- Section -->
-								<section>
-									<header class="major">
-										<h2>Get in touch</h2>
-									</header>
-									<p>Sed varius enim lorem ullamcorper dolore aliquam aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin sed aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-									<ul class="contact">
-										<li class="icon solid fa-envelope"><a href="#">information@untitled.tld</a></li>
-										<li class="icon solid fa-phone">(000) 000-0000</li>
-										<li class="icon solid fa-home">1234 Somewhere Road #8254<br />
-										Nashville, TN 00000-0000</li>
-									</ul>
-								</section>
-
 							<!-- Footer -->
 								<footer id="footer">
-									<p class="copyright">&copy; Untitled. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+									<p class="copyright">&copy; Walpole High School. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
 								</footer>
 
 						</div>
